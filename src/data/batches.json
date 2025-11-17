@@ -1,0 +1,38 @@
+[
+  {
+    "id": "B-001",
+    "product": "Chocolate Syrup 10L",
+    "targetQty": 1000,
+    "uom": "L",
+    "status": "planned",
+    "startTime": null,
+    "endTime": null
+  },
+  {
+    "id": "B-002",
+    "product": "Vanilla Mix 5L",
+    "targetQty": 500,
+    "uom": "L",
+    "status": "inProgress",
+    "startTime": "2025-11-05T08:00",
+    "endTime": null
+  },
+  {
+    "id": "B-003",
+    "product": "Strawberry Mix 5L",
+    "targetQty": 1500,
+    "uom": "L",
+    "status": "completed",
+    "startTime": "2025-11-05T08:00",
+    "endTime": null
+  },
+  {
+    "id": "B-004",
+    "product": "Vanilla Mix 5L",
+    "targetQty": 2000,
+    "uom": "L",
+    "status": "paused",
+    "startTime": "2025-11-05T08:00",
+    "endTime": null
+  }
+]

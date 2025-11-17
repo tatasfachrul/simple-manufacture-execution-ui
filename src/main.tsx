@@ -4,7 +4,7 @@ import "./index.css";
 
 import { routeTree } from "./routeTree.gen";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-
+import { AppProvider } from "./hooks/context/AppProvider";
 const router = createRouter({ routeTree });
 
 const rootElement = document.getElementById("root")!;
@@ -12,7 +12,9 @@ if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </StrictMode>
   );
 }
