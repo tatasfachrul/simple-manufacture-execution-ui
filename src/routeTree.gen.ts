@@ -11,7 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthDashboardIndexRouteImport } from './routes/_auth/dashboard/index'
+import { Route as AuthhistoryHistoryRouteImport } from './routes/_auth/(history)/history'
+import { Route as AuthdashboardDashboardRouteImport } from './routes/_auth/(dashboard)/dashboard'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -23,40 +24,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthDashboardIndexRoute = AuthDashboardIndexRouteImport.update({
-  id: '/_auth/dashboard/',
-  path: '/dashboard/',
+const AuthhistoryHistoryRoute = AuthhistoryHistoryRouteImport.update({
+  id: '/_auth/(history)/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthdashboardDashboardRoute = AuthdashboardDashboardRouteImport.update({
+  id: '/_auth/(dashboard)/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/dashboard': typeof AuthDashboardIndexRoute
+  '/dashboard': typeof AuthdashboardDashboardRoute
+  '/history': typeof AuthhistoryHistoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/dashboard': typeof AuthDashboardIndexRoute
+  '/dashboard': typeof AuthdashboardDashboardRoute
+  '/history': typeof AuthhistoryHistoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/_auth/dashboard/': typeof AuthDashboardIndexRoute
+  '/_auth/(dashboard)/dashboard': typeof AuthdashboardDashboardRoute
+  '/_auth/(history)/history': typeof AuthhistoryHistoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard'
+  fullPaths: '/' | '/login' | '/dashboard' | '/history'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard'
-  id: '__root__' | '/' | '/login' | '/_auth/dashboard/'
+  to: '/' | '/login' | '/dashboard' | '/history'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/_auth/(dashboard)/dashboard'
+    | '/_auth/(history)/history'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
-  AuthDashboardIndexRoute: typeof AuthDashboardIndexRoute
+  AuthdashboardDashboardRoute: typeof AuthdashboardDashboardRoute
+  AuthhistoryHistoryRoute: typeof AuthhistoryHistoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +90,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/dashboard/': {
-      id: '/_auth/dashboard/'
+    '/_auth/(history)/history': {
+      id: '/_auth/(history)/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AuthhistoryHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/(dashboard)/dashboard': {
+      id: '/_auth/(dashboard)/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthDashboardIndexRouteImport
+      preLoaderRoute: typeof AuthdashboardDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +110,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
-  AuthDashboardIndexRoute: AuthDashboardIndexRoute,
+  AuthdashboardDashboardRoute: AuthdashboardDashboardRoute,
+  AuthhistoryHistoryRoute: AuthhistoryHistoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

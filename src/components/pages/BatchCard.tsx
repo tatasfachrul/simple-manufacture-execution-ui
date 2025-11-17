@@ -3,22 +3,20 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import type { BatchTypes } from "@/interfaces/BatchTypes";
 import { StatusConstant } from "@/data/status-constant";
 import { Button } from "../ui/button";
+import { BatchCompletionForm } from "./BatchCompletionForm";
+import { useState } from "react";
 
-export const BatchCard = ({
-  batch,
-}: {
-  batch: BatchTypes;
-  onComplete: string;
-}) => {
+export const BatchCard = ({ batch }: { batch: BatchTypes }) => {
   const {
-    stateBatchContext: { updateBatch, completeBatch },
+    stateBatchContext: { updateBatch },
   } = useBatchContext();
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <Card>
       <CardHeader>
         <h2 className="font-bold">{batch.id}</h2>
-        <p className="text-sm text-gray-500">{batch.produt}</p>
+        <p className="text-sm text-gray-500">{batch.product}</p>
       </CardHeader>
       <CardContent>
         <p>
@@ -68,13 +66,7 @@ export const BatchCard = ({
             </Button>
           )}
           {batch.status === "inProgress" && (
-            <Button
-              className="ml-2"
-              variant={"default"}
-              onClick={() => completeBatch(batch)}
-            >
-              Complete
-            </Button>
+            <BatchCompletionForm batch={batch} open={open} setOpen={setOpen} />
           )}
         </div>
       </CardContent>

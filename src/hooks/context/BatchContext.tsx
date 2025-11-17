@@ -38,12 +38,14 @@ export const BatchProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   const completeBatch = (result: BatchTypes) => {
-    setContextHistoryBatch((prev) => [...prev, result]);
-    updateBatch(result.id, {
+    result = {
       ...result,
       status: "completed",
       endTime: new Date().toISOString(),
-    });
+    };
+    updateBatch(result.id, result);
+
+    setContextHistoryBatch((prev) => [...prev, result]);
   };
 
   return (
