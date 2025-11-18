@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import type { BatchTypes } from "@/interfaces/ProductionTypes";
@@ -66,9 +61,6 @@ export const BatchCompletionForm = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="ml-2" asChild>
-        <Button>Complete</Button>
-      </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogTitle>Complete Batch {batch.id}</DialogTitle>
 

@@ -13,7 +13,7 @@
     "product": "Vanilla Mix 5L",
     "targetQty": 500,
     "uom": "L",
-    "status": "inProgress",
+    "status": "planned",
     "startTime": "2025-11-05T08:00",
     "endTime": null
   },
@@ -22,7 +22,7 @@
     "product": "Strawberry Mix 5L",
     "targetQty": 1500,
     "uom": "L",
-    "status": "completed",
+    "status": "planned",
     "startTime": "2025-11-05T08:00",
     "endTime": null
   },
@@ -31,7 +31,7 @@
     "product": "Vanilla Mix 5L",
     "targetQty": 2000,
     "uom": "L",
-    "status": "paused",
+    "status": "planned",
     "startTime": "2025-11-05T08:00",
     "endTime": null
   }

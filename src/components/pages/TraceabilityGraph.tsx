@@ -20,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import moment from "moment";
 
 interface TraceabilityGraphProps {
   lot: BatchTypes;
@@ -139,6 +140,7 @@ export const TraceabilityGraph = ({ lot, onClose }: TraceabilityGraphProps) => {
           <DialogTitle>{`${lot.lot} - ${lot.product}`}</DialogTitle>
         </DialogHeader>
         <div className="flex gap-2 flex-row">
+          {/* Left Section */}
           <div className="w-1/2 flex gap-2 flex-col">
             <div>
               <Label className="text-gray-500">Lot Number</Label>
@@ -152,7 +154,14 @@ export const TraceabilityGraph = ({ lot, onClose }: TraceabilityGraphProps) => {
               <Label className="text-gray-500">Operator</Label>
               <p className="font-bold">{lot.operator}</p>
             </div>
+            <div>
+              <Label className="text-gray-500">Start Time</Label>
+              <p className="font-bold">
+                {moment(lot.startTime).format("HH:MM DD-MM-YYYY")}
+              </p>
+            </div>
           </div>
+          {/* Right Section */}
           <div className="w-1/2 flex gap-2 flex-col">
             <div>
               <Label className="text-gray-500">Product</Label>
@@ -175,6 +184,12 @@ export const TraceabilityGraph = ({ lot, onClose }: TraceabilityGraphProps) => {
                   {lot.scrapQty} {lot.uom}
                 </p>
               </div>
+            </div>
+            <div>
+              <Label className="text-gray-500">End Time</Label>
+              <p className="font-bold">
+                {moment(lot.endTime).format("HH:MM DD-MM-YYYY")}
+              </p>
             </div>
           </div>
         </div>
