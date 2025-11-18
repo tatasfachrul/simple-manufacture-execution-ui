@@ -115,8 +115,8 @@ export const BatchCompletionForm = ({
         </div>
 
         <div className="flex flex-col gap-1">
-          <Label htmlFor="lotNumber">Materials</Label>
-          <Table>
+          <Label htmlFor="materialsInput">Materials</Label>
+          <Table id="materialsInput">
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>

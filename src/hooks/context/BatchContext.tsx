@@ -75,9 +75,9 @@ export const BatchProvider: FC<{ children: ReactNode }> = ({ children }) => {
       product: result.product,
       inputs: materials,
       yield: result.yieldQty,
+      batchId: result.id,
     };
 
-    console.log("productionResult", productionResult);
     if (data !== null) {
       data.lots.push(productionResult);
       setContextProductionLot(data);

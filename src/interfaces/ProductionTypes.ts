@@ -21,6 +21,7 @@ export interface ProductionLotDetailTypes {
   product: string;
   yield: number;
   inputs: ProductionMaterialsTypes[];
+  batchId: string;
 }
 
 export interface ProductionMaterialsTypes {

@@ -1,6 +1,9 @@
 import { AppSidebar } from "@/components/pages/AppSidebar";
+import { TraceabilityGraph } from "@/components/pages/TraceabilityGraph";
 import { TraceabilityTable } from "@/components/pages/TraceabilityTable";
+import type { BatchTypes } from "@/interfaces/ProductionTypes";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_auth/(history)/history")({
   beforeLoad: ({ context, location }) => {
@@ -8,10 +11,11 @@ export const Route = createFileRoute("/_auth/(history)/history")({
       throw redirect({ to: "/login", search: { redirect: location.href } });
     }
   },
-  component: RouteComponent,
+  component: HistoryLayout,
 });
 
-function RouteComponent() {
+function HistoryLayout() {
+  const [selectedLot, setSelectedLot] = useState<BatchTypes | null>(null);
   return (
     <>
       <AppSidebar />
@@ -19,7 +23,14 @@ function RouteComponent() {
         <h1 className="text-4xl font-extrabold tracking-tight text-balance">
           Production History
         </h1>
-        <TraceabilityTable />
+        <TraceabilityTable onRowClicked={setSelectedLot} />
+
+        {selectedLot && (
+          <TraceabilityGraph
+            lot={selectedLot}
+            onClose={() => setSelectedLot(null)}
+          />
+        )}
       </div>
     </>
   );

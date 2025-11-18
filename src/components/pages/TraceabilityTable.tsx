@@ -8,14 +8,16 @@ import {
   TableRow,
 } from "../ui/table";
 import moment from "moment";
+import type { BatchTypes } from "@/interfaces/ProductionTypes";
 
-export const TraceabilityTable = () => {
+interface TraceabilityTableProps {
+  onRowClicked: (arg: BatchTypes) => void;
+}
+
+export const TraceabilityTable = ({ onRowClicked }: TraceabilityTableProps) => {
   const {
-    stateBatchContext: { contextHistoryBatch, contextProductionLot },
+    stateBatchContext: { contextHistoryBatch },
   } = useBatchContext();
-
-  console.log("contextHistoryBatch", contextHistoryBatch);
-  console.log("contextProductionLot", contextProductionLot);
 
   const duration = (startTime: string | null, endTime: string | null) => {
     const timeDiff = moment(endTime).diff(startTime);
@@ -41,7 +43,7 @@ export const TraceabilityTable = () => {
 
       <TableBody>
         {contextHistoryBatch.map((item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.id} onClick={() => onRowClicked(item)}>
             <TableCell>{item.lot}</TableCell>
             <TableCell>{item.product}</TableCell>
             <TableCell>{item.yieldQty}</TableCell>
