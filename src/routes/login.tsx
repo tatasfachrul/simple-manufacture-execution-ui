@@ -32,6 +32,7 @@ function LoginLayout() {
       });
     }
 
+    setContextOperatorName(contextOperatorName);
     localStorage.setItem(localStorageKey.user, contextOperatorName);
 
     navigate({ to: "/dashboard" });

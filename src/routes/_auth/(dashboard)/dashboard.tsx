@@ -1,20 +1,9 @@
-import { BatchCard } from "@/components/pages/BatchCard";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { BatchCard } from "@/components/custom/BatchCard";
+import { createFileRoute } from "@tanstack/react-router";
 import { useBatchContext } from "@/hooks/context/BatchContext";
-import { AppSidebar } from "@/components/pages/AppSidebar";
+import { AppSidebar } from "@/components/custom/AppSidebar";
 
 export const Route = createFileRoute("/_auth/(dashboard)/dashboard")({
-  beforeLoad: ({
-    context,
-    location,
-  }: {
-    context: { login?: string };
-    location: { href: string };
-  }) => {
-    if (!context.login) {
-      throw redirect({ to: "/login", search: { redirect: location.href } });
-    }
-  },
   component: DashboardLayout,
 });
 
