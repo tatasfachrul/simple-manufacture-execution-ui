@@ -31,6 +31,8 @@ function LoginLayout() {
       });
     }
 
+    localStorage.setItem("user.operator", contextOperatorName);
+
     navigate({ to: "/dashboard" });
   };
 

@@ -32,8 +32,7 @@ export const TraceabilityTable = () => {
           <TableHead>Yield</TableHead>
           <TableHead>Scrap</TableHead>
           <TableHead>Duration</TableHead>
-          <TableHead>Start</TableHead>
-          <TableHead>End</TableHead>
+          <TableHead>Operator</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -45,12 +44,7 @@ export const TraceabilityTable = () => {
             <TableCell>{item.yieldQty}</TableCell>
             <TableCell>{item.scrapQty}</TableCell>
             <TableCell>{duration(item.startTime, item.endTime)}</TableCell>
-            <TableCell>
-              {moment(item.startTime).format("HH:MM DD-MM-YYYY")}
-            </TableCell>
-            <TableCell>
-              {moment(item.endTime).format("HH:MM DD-MM-YYYY")}
-            </TableCell>
+            <TableCell>{item.operator}</TableCell>
           </TableRow>
         ))}
       </TableBody>

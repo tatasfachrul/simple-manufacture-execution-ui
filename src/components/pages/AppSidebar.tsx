@@ -18,14 +18,14 @@ import { useNavigate } from "@tanstack/react-router";
 
 export const AppSidebar = () => {
   const {
-    stateOperatorContext: { contextOperatorName },
+    stateOperatorContext: { setContextOperatorName },
   } = useOperatorContext();
   const navigate = useNavigate();
   return (
     <Sidebar className="flex">
       <SidebarHeader>
         <Card>
-          <CardContent>Hi! {contextOperatorName}</CardContent>
+          <CardContent>Hi! {localStorage.getItem("user.operator")}</CardContent>
         </Card>
       </SidebarHeader>
       <SidebarContent className="m-2">
@@ -60,7 +60,16 @@ export const AppSidebar = () => {
       <SidebarFooter>
         <Card>
           <CardContent>
-            <Button className="w-full">Logout</Button>
+            <Button
+              className="w-full"
+              onClick={() => {
+                setContextOperatorName("");
+                localStorage.removeItem("user.operator");
+                navigate({ to: "/login" });
+              }}
+            >
+              Logout
+            </Button>
           </CardContent>
         </Card>
       </SidebarFooter>
