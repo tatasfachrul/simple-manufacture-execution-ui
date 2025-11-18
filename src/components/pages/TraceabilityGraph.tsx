@@ -127,75 +127,97 @@ export const TraceabilityGraph = ({ lot, onClose }: TraceabilityGraphProps) => {
 
   return (
     <Dialog open={!!lot} onOpenChange={onClose}>
-      <DialogContent className="max-w-none! w-auto">
-        <DialogHeader>
+      <DialogContent className="max-w-none! w-auto min-w-3xl">
+        <DialogHeader className="border-b border-gray-200 p-2">
           <DialogTitle>{`${lot.lot} - ${lot.product}`}</DialogTitle>
         </DialogHeader>
-        <div className="flex gap-2 flex-row">
-          {/* Left Section */}
-          <div className="w-1/2 flex gap-2 flex-col">
-            <div>
-              <Label className="text-gray-500">Lot Number</Label>
-              <p className="font-bold">{lot.lot}</p>
+        <div className="p-2 space-y-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-8 text-sm">
+            {/* Lot Number */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 flex items-center mb-1">
+                Lot Number
+              </Label>
+              <p className="font-semibold text-md text-gray-800">{lot.lot}</p>
             </div>
-            <div>
-              <Label className="text-gray-500">Batch Number</Label>
-              <p className="font-bold">{lot.id}</p>
+            {/* Batch Number */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 flex items-center mb-1">
+                Batch Number
+              </Label>
+              <p className="font-semibold text-md text-gray-800">{lot.id}</p>
             </div>
-            <div>
-              <Label className="text-gray-500">Operator</Label>
-              <p className="font-bold">{lot.operator}</p>
+            {/* Operator */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 mb-1">Operator</Label>
+              <p className="font-medium text-gray-800">{lot.operator}</p>
             </div>
-            <div>
-              <Label className="text-gray-500">Start Time</Label>
-              <p className="font-bold">
-                {moment(lot.startTime).format("HH:MM DD-MM-YYYY")}
+            {/* Target Qty */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 flex items-center mb-1">
+                Target Qty
+              </Label>
+              <p className="font-medium text-gray-800">
+                {lot.targetQty} {lot.uom}
               </p>
             </div>
-          </div>
-          {/* Right Section */}
-          <div className="w-1/2 flex gap-2 flex-col">
-            <div>
-              <Label className="text-gray-500">Product</Label>
-              <p className="font-bold">{lot.product}</p>
+            {/* Yield Qty */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 mb-1">Yield Qty</Label>
+              <p className="font-medium text-gray-800">
+                {lot.yieldQty} {lot.uom}
+              </p>
             </div>
-            <div>
-              <Label className="text-gray-500">Target Qty</Label>
-              <p className="font-bold">{lot.targetQty}</p>
+
+            {/* Scrap Qty */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 mb-1">Scrap Qty</Label>
+              <p className="font-medium text-red-600">
+                {lot.scrapQty} {lot.uom}
+              </p>
             </div>
-            <div className="flex flex-row gap-8">
-              <div>
-                <Label className="text-gray-500">Yield Qty</Label>
-                <p className="font-bold">
-                  {lot.yieldQty} {lot.uom}
-                </p>
-              </div>
-              <div>
-                <Label className="text-gray-500">Scrap Qty</Label>
-                <p className="font-bold">
-                  {lot.scrapQty} {lot.uom}
-                </p>
-              </div>
+            {/* Start Time */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 flex items-center mb-1">
+                Start Time
+              </Label>
+              <p className="font-medium text-gray-800 tabular-nums">
+                {lot.startTime
+                  ? moment(lot.startTime).format("HH:mm D-MM-YYYY")
+                  : "-"}
+              </p>
             </div>
-            <div>
-              <Label className="text-gray-500">End Time</Label>
-              <p className="font-bold">
-                {moment(lot.endTime).format("HH:MM DD-MM-YYYY")}
+
+            {/* End Time */}
+            <div className="flex flex-col">
+              <Label className="text-gray-500 mb-1">End Time</Label>
+              <p className="font-medium text-gray-800 tabular-nums">
+                {lot.endTime
+                  ? moment(lot.endTime).format("HH:mm D-MM-YYYY")
+                  : "-"}
               </p>
             </div>
           </div>
         </div>
-        <div style={{ width: 600, height: 300 }}>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            nodesFocusable={true}
-            edgesFocusable={true}
-            fitView
-          />
+        <div className="space-y-3">
+          <h3 className="text-lg font-semibold text-gray-700">
+            Production Flow
+          </h3>
+          <div
+            className="rounded-lg border border-gray-300 bg-gray-50 shadow-inner"
+            style={{ height: 300 }}
+          >
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              nodesFocusable={true}
+              edgesFocusable={true}
+              fitView
+            />
+          </div>
         </div>
         <div>
           <Label className="text-gray-500" htmlFor="materialsInput">
