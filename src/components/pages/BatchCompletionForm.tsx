@@ -6,7 +6,7 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { useState } from "react";
-import type { BatchTypes } from "@/interfaces/BatchTypes";
+import type { BatchTypes } from "@/interfaces/ProductionTypes";
 import { useBatchContext } from "@/hooks/context/BatchContext";
 import { useOperatorContext } from "@/hooks/context/OperatorContext";
 import { toast } from "sonner";

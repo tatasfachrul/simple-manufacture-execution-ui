@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import type { BatchTypes } from "@/interfaces/BatchTypes";
+import type { BatchTypes } from "@/interfaces/ProductionTypes";
 import {
   createContext,
   useContext,

@@ -1,6 +1,6 @@
 import { useBatchContext } from "@/hooks/context/BatchContext";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import type { BatchTypes } from "@/interfaces/BatchTypes";
+import type { BatchTypes } from "@/interfaces/ProductionTypes";
 import { StatusConstant } from "@/data/status-constant";
 import { Button } from "../ui/button";
 import { BatchCompletionForm } from "./BatchCompletionForm";
