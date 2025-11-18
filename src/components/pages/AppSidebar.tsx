@@ -15,6 +15,7 @@ import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { GalleryHorizontalEnd, History } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { localStorageKey } from "@/data/status-constant";
 
 export const AppSidebar = () => {
   const {
@@ -25,7 +26,9 @@ export const AppSidebar = () => {
     <Sidebar className="flex">
       <SidebarHeader>
         <Card>
-          <CardContent>Hi! {localStorage.getItem("user.operator")}</CardContent>
+          <CardContent>
+            Hi! {localStorage.getItem(localStorageKey.user)}
+          </CardContent>
         </Card>
       </SidebarHeader>
       <SidebarContent className="m-2">
@@ -64,7 +67,7 @@ export const AppSidebar = () => {
               className="w-full"
               onClick={() => {
                 setContextOperatorName("");
-                localStorage.removeItem("user.operator");
+                localStorage.removeItem(localStorageKey.user);
                 navigate({ to: "/login" });
               }}
             >

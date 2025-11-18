@@ -1,5 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import type { BatchTypes } from "@/interfaces/ProductionTypes";
+import type {
+  BatchTypes,
+  ProductionLotDetailTypes,
+  ProductionLotTypes,
+  ProductionMaterialsTypes,
+} from "@/interfaces/ProductionTypes";
 import {
   createContext,
   useContext,
@@ -9,6 +14,7 @@ import {
 } from "react";
 
 import batchesData from "../../data/batches.json";
+import { localStorageKey } from "@/data/status-constant";
 
 const data = JSON.parse(JSON.stringify(batchesData));
 
@@ -18,7 +24,12 @@ interface BatchContextProps {
   contextHistoryBatch: BatchTypes[];
   setContextHistoryBatch: (data: BatchTypes[]) => void;
   updateBatch: (id: string, updates: BatchTypes) => void;
-  completeBatch: (result: BatchTypes) => void;
+  completeBatch: (
+    result: BatchTypes,
+    materials: ProductionMaterialsTypes[]
+  ) => void;
+  contextProductionLot: ProductionLotTypes | null;
+  setContextProductionLot: (data: ProductionLotTypes) => void;
 }
 
 const BatchContextState = createContext<BatchContextProps | undefined>(
@@ -30,14 +41,23 @@ export const BatchProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [contextHistoryBatch, setContextHistoryBatch] = useState<BatchTypes[]>(
     []
   );
+  const [contextProductionLot, setContextProductionLot] =
+    useState<ProductionLotTypes | null>(null);
+
+  const user = localStorage.getItem(localStorageKey.user);
 
   const updateBatch = (id: string, updates: BatchTypes) => {
     setContextBatch((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, ...updates } : b))
+      prev.map((b) =>
+        b.id === id ? { ...b, ...updates, operator: user || "" } : b
+      )
     );
   };
 
-  const completeBatch = (result: BatchTypes) => {
+  const completeBatch = (
+    result: BatchTypes,
+    materials: ProductionMaterialsTypes[]
+  ) => {
     result = {
       ...result,
       status: "completed",
@@ -45,7 +65,28 @@ export const BatchProvider: FC<{ children: ReactNode }> = ({ children }) => {
     };
     updateBatch(result.id, result);
 
+    // Insert to History
     setContextHistoryBatch((prev) => [...prev, result]);
+
+    // Production Result
+    let data = contextProductionLot;
+    const productionResult: ProductionLotDetailTypes = {
+      lot: result.lot,
+      product: result.product,
+      inputs: materials,
+      yield: result.yieldQty,
+    };
+
+    console.log("productionResult", productionResult);
+    if (data !== null) {
+      data.lots.push(productionResult);
+      setContextProductionLot(data);
+    } else {
+      data = {
+        lots: [productionResult],
+      };
+      setContextProductionLot(data);
+    }
   };
 
   return (
@@ -57,6 +98,8 @@ export const BatchProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setContextHistoryBatch,
         updateBatch,
         completeBatch,
+        contextProductionLot,
+        setContextProductionLot,
       }}
     >
       {children}

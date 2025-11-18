@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { localStorageKey } from "@/data/status-constant";
 import { useOperatorContext } from "@/hooks/context/OperatorContext";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
@@ -31,7 +32,7 @@ function LoginLayout() {
       });
     }
 
-    localStorage.setItem("user.operator", contextOperatorName);
+    localStorage.setItem(localStorageKey.user, contextOperatorName);
 
     navigate({ to: "/dashboard" });
   };

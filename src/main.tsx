@@ -6,11 +6,12 @@ import { routeTree } from "./routeTree.gen";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { AppProvider } from "./hooks/context/AppProvider";
 import { SidebarProvider } from "./components/ui/sidebar";
+import { localStorageKey } from "./data/status-constant";
 
 const router = createRouter({ routeTree });
 
 const InnerApp = () => {
-  const user = localStorage.getItem("user.operator");
+  const user = localStorage.getItem(localStorageKey.user);
 
   return <RouterProvider router={router} context={{ login: user }} />;
 };

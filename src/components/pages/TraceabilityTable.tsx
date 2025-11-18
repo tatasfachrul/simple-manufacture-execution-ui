@@ -11,8 +11,11 @@ import moment from "moment";
 
 export const TraceabilityTable = () => {
   const {
-    stateBatchContext: { contextHistoryBatch },
+    stateBatchContext: { contextHistoryBatch, contextProductionLot },
   } = useBatchContext();
+
+  console.log("contextHistoryBatch", contextHistoryBatch);
+  console.log("contextProductionLot", contextProductionLot);
 
   const duration = (startTime: string | null, endTime: string | null) => {
     const timeDiff = moment(endTime).diff(startTime);

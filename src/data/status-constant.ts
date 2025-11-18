@@ -4,3 +4,7 @@ export const StatusConstant = [
   { status: "completed", title: "Completed" },
   { status: "paused", title: "Paused" },
 ];
+
+export const localStorageKey = {
+  user: "user.operator",
+};
