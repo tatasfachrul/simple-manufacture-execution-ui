@@ -26,7 +26,7 @@ function LoginLayout() {
 
   const checkUser = () => {
     if (contextOperatorName === "") {
-      toast("Please select Operator first!", {
+      return toast("Please select Operator first!", {
         dismissible: true,
         duration: 3000,
       });

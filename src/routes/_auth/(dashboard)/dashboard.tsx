@@ -4,7 +4,13 @@ import { useBatchContext } from "@/hooks/context/BatchContext";
 import { AppSidebar } from "@/components/pages/AppSidebar";
 
 export const Route = createFileRoute("/_auth/(dashboard)/dashboard")({
-  beforeLoad: ({ context, location }) => {
+  beforeLoad: ({
+    context,
+    location,
+  }: {
+    context: { login?: string };
+    location: { href: string };
+  }) => {
     if (!context.login) {
       throw redirect({ to: "/login", search: { redirect: location.href } });
     }

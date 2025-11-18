@@ -6,7 +6,13 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/_auth/(history)/history")({
-  beforeLoad: ({ context, location }) => {
+  beforeLoad: ({
+    context,
+    location,
+  }: {
+    context: { login?: string };
+    location: { href: string };
+  }) => {
     if (!context.login) {
       throw redirect({ to: "/login", search: { redirect: location.href } });
     }
