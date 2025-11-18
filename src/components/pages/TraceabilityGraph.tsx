@@ -36,16 +36,8 @@ interface NodesTypes {
 const initialNodes = [
   { id: "n1", position: { x: 0, y: 0 }, data: { label: "Node 1" } },
   { id: "n2", position: { x: 200, y: 0 }, data: { label: "Node 2" } },
-  { id: "n3", position: { x: 400, y: 0 }, data: { label: "Node 2" } },
-  { id: "batch", position: { x: 200, y: 100 }, data: { label: "Batch" } },
-  { id: "lot", position: { x: 200, y: 200 }, data: { label: "Lot" } },
 ];
-const initialEdges = [
-  { id: "n1-batch", source: "n1", target: "batch" },
-  { id: "n2-batch", source: "n2", target: "batch" },
-  { id: "n3-batch", source: "n3", target: "batch" },
-  { id: "batch-lot", source: "batch", target: "lot" },
-];
+const initialEdges = [{ id: "n1-n2", source: "n1", target: "n2" }];
 
 export const TraceabilityGraph = ({ lot, onClose }: TraceabilityGraphProps) => {
   const [nodes, setNodes] = useState<NodesTypes[]>(initialNodes);

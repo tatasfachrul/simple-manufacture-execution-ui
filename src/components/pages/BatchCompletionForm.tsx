@@ -44,6 +44,8 @@ export const BatchCompletionForm = ({
   const user = localStorage.getItem(localStorageKey.user);
 
   const submit = () => {
+    if (yieldQty === 0) return showError("Yield Qty cannot be blank");
+
     completeBatch(
       {
         ...batch,
@@ -57,6 +59,10 @@ export const BatchCompletionForm = ({
 
     setOpen(false);
     toast("Batch Completed Successfully");
+  };
+
+  const showError = (msg: string) => {
+    alert(msg);
   };
 
   return (
@@ -76,7 +82,9 @@ export const BatchCompletionForm = ({
         </div>
 
         <div className="flex flex-col gap-1">
-          <Label htmlFor="yieldQty">Actual Yield</Label>
+          <Label htmlFor="yieldQty" aria-required>
+            <p className="text-red-500">*</p>Actual Yield
+          </Label>
           <Input
             id="yieldQty"
             type="number"
